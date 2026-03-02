@@ -30,7 +30,7 @@ jobs:
     - name: Set up Nodejs
       uses: actions/setup-node@v4
       with:
-        node-version: '21.x'
+        node-version: "lts/*"
     
     - name: Semantic release
       run: npx semantic-release

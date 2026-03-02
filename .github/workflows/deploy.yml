@@ -2,7 +2,8 @@ name: Deploy app
 
 on:
   create:
-
+    tags:
+    - 'v*'
 
 jobs:
   deploy:

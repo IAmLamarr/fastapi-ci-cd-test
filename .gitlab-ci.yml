@@ -20,7 +20,7 @@ create_image:
   variables:
     DOCKER_IMAGE: $DOCKER_USER/$DOCKER_IMAGE_NAME:$CI_COMMIT_TAG
   script:
-    - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+    - echo "$DOCKER_TOKEN" | docker login -u $DOCKER_USER --password-stdin
     - docker build -t $DOCKER_IMAGE .
     - docker push $DOCKER_IMAGE
   rules:

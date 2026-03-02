@@ -40,10 +40,11 @@ jobs:
       with:
         node-version: "lts/*"
     
-    - name: Semantic release
-      run: npx semantic-release
+    - name: Run semantic-release
+      id: semantic_release
+      uses: cycjimmy/semantic-release-action@v4
       env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   deploy:
     needs: release
     if: needs.release.outputs.new_version_was_released == 'true'

@@ -10,3 +10,9 @@ def test_read_main():
     response = client.get('/')
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == {'Hello': 'World'}
+
+
+def test_read_item():
+    response = client.get('/items/2?q=a')
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {'item_id': 2, 'q': 'a'}

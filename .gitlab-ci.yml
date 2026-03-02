@@ -12,5 +12,7 @@ test_tag:
   image: ubuntu:latest
   stage: publish
   script:
+    - echo $CI_COMMIT_TAG
     - echo ${CI_COMMIT_TAG}
-    - echo "AAA"
+  rules:
+    - if: '$CI_COMMIT_TAG'

@@ -19,6 +19,7 @@ create_tag:
   image: node:latest
   stage: release
   script:
+    - npm i @semantic-release/gitlab
     - npx semantic-release
   rules:
     - if: '$CI_COMMIT_TAG'

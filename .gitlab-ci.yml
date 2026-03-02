@@ -1,18 +1,26 @@
 stages:
   - release
-  - publish
+  - deploy
 
 create_tag:
   image: node:latest
   stage: release
   script:
     - npx semantic-release
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      when: never
 
-test_tag:
-  image: ubuntu:latest
-  stage: publish
+create_image:
+  image: docker:cli
+  stage: deploy
+  services:
+    - docker:dind
+  variables:
+    DOCKER_IMAGE: $DOCKER_USER/$DOCKER_IMAGE_NAME:$CI_COMMIT_TAG
   script:
-    - echo $CI_COMMIT_TAG
-    - echo ${CI_COMMIT_TAG}
+    - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+    - docker build -t $DOCKER_IMAGE .
+    - docker push $DOCKER_IMAGE
   rules:
     - if: '$CI_COMMIT_TAG'

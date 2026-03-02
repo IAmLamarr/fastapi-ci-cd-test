@@ -11,6 +11,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: Env
     outputs:
       new_release_version: ${{ steps.semantic_release.outputs.new_release_version }}
     permissions:
@@ -50,6 +51,7 @@ jobs:
   deploy:
     needs: release
     runs-on: ubuntu-latest
+    environment: Env
     steps:
     - name: Log in to Docker Hub
       uses: docker/login-action@v3

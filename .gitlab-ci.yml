@@ -1,0 +1,8 @@
+stages:
+  - release
+
+create_tag:
+  image: node:latest
+  stage: release
+  script:
+    - npx semantic-release

@@ -1,0 +1,36 @@
+name: Release app
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Install uv
+      run: pip install uv
+    
+    - name: Install dependencies
+      run: uv sync
+
+    - name: Run tests with pytest
+      run: uv run pytest
+
+    - name: Set up Nodejs
+      uses: actions/setup-node@v4
+      with:
+        node-version: '21.x'
+    
+    - name: Semantic release
+      run: npx semantic-release

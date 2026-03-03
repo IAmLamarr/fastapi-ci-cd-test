@@ -6,6 +6,8 @@ stages:
 run_tests:
   image: python:3.13-alpine
   stage: test
+  tags:
+  - custom
   script:
     - pip install uv
     - uv sync
@@ -18,6 +20,8 @@ run_tests:
 create_tag:
   image: node:latest
   stage: release
+  tags:
+  - custom
   script:
     - npm i @semantic-release/gitlab
     - npx semantic-release
@@ -29,6 +33,8 @@ create_tag:
 create_image:
   image: docker:cli
   stage: deploy
+  tags:
+  - custom
   services:
     - docker:dind
   variables:
